@@ -4,9 +4,7 @@ import { z } from "zod";
 import fs from "fs";
 import path from "path";
 // ─── Config ───────────────────────────────────────────────────────────────────
-const PROMPTS_DIR = path.resolve(path.dirname(new URL(import.meta.url).pathname), // Get file path in the ES module way
-    "../prompts");
-
+const PROMPTS_DIR = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../prompts");
 // Ensure the prompts directory exists at startup
 if (!fs.existsSync(PROMPTS_DIR)) {
     fs.mkdirSync(PROMPTS_DIR, { recursive: true });
