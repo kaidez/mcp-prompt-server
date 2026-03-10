@@ -27,3 +27,7 @@ yarn-error.log*
 # OS
 .DS_Store
 Thumbs.db
+
+__pycache__/
+tests/
+uv.lock
