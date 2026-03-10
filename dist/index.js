@@ -18,7 +18,10 @@ const server = new McpServer({
 //
 // Returns a list of all .txt and .md files in the prompts folder.
 // No input required — Claude calls this to discover what prompt files exist.
-server.tool("list_prompts", "List all prompt files (.txt and .md) in the prompts folder", {}, async () => {
+server.registerTool("list_prompts", {
+    description: "List all prompt files (.txt and .md) in the prompts folder",
+    inputSchema: {},
+}, async () => {
     const files = fs
         .readdirSync(PROMPTS_DIR)
         .filter((f) => f.endsWith(".txt") || f.endsWith(".md"));
@@ -45,8 +48,11 @@ server.tool("list_prompts", "List all prompt files (.txt and .md) in the prompts
 //
 // Reads and returns the contents of a specific prompt file.
 // Claude passes the filename it wants to read.
-server.tool("read_prompt", "Read the contents of a specific prompt file by filename", {
-    filename: z.string().describe("The name of the prompt file to read (e.g. test.txt)"),
+server.registerTool("read_prompt", {
+    description: "Read the contents of a specific prompt file by filename",
+    inputSchema: {
+        filename: z.string().describe("The name of the prompt file to read (e.g. test.txt)"),
+    },
 }, async ({ filename }) => {
     // Guard: prevent directory traversal attacks (e.g. filename = "../../etc/passwd")
     const safeName = path.basename(filename);
@@ -75,8 +81,11 @@ server.tool("read_prompt", "Read the contents of a specific prompt file by filen
 //
 // Saves new text as a timestamped .txt file in the prompts folder.
 // Write-on-success pattern: file is only written after all validation passes.
-server.tool("save_prompt", "Save text as a new timestamped prompt file in the prompts folder", {
-    text: z.string().describe("The text content to save as a prompt file"),
+server.registerTool("save_prompt", {
+    description: "Save text as a new timestamped prompt file in the prompts folder",
+    inputSchema: {
+        text: z.string().describe("The text content to save as a prompt file"),
+    },
 }, async ({ text }) => {
     // Guard: reject empty content
     if (!text.trim()) {
