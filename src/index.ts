@@ -26,7 +26,7 @@ const server = new McpServer({
 // ─── Tool: list_prompts ───────────────────────────────────────────────────────
 //
 // Returns a list of all .txt and .md files in the prompts folder.
-// No input required — Claude calls this to discover what prompt files exist.
+// No input required - Claude calls this to discover what prompt files exist.
 
 server.registerTool(
   "list_prompts",
