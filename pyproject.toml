@@ -1,0 +1,9 @@
+[project]
+name = "mcp-prompt-server"
+version = "0.1.0"
+description = "python port of kaidez MCP server"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=1.26.0",
+]
