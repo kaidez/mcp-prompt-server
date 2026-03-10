@@ -4,6 +4,8 @@ A TypeScript MCP (Model Context Protocol) server that connects Claude Desktop to
 
 Built as a portfolio project demonstrating integration engineering patterns: event-driven architecture, ETL pipelines, runtime validation, and security-conscious design.
 
+This project is part of a three-project series built to deepen understanding of the Claude API and the broader Anthropic ecosystem — including how MCP servers, VS Code extensions, and the Claude API itself relate to each other and work together.
+
 ---
 
 ## What This Is
@@ -200,10 +202,15 @@ npm test
 
 ## Companion Projects
 
-| Project | Description |
-|--|--|
-| [`claude-prompt-reader`](https://github.com/kaidez/claude-prompt-reader) | VS Code extension — watches `prompts/` folder and sends files to Claude on save |
-| [`save-selected-text`](https://github.com/kaidez/save-selected-text) | VS Code extension — saves highlighted text to `prompts/` and sends to Claude via right-click |
+All three projects were built as a series to better understand the Claude API and Anthropic ecosystem — specifically how the API, MCP protocol, and VS Code tooling relate to each other.
+
+| Project | Uses Claude API directly | Description |
+|--|--|--|
+| [`claude-prompt-reader`](https://github.com/kaidez/claude-prompt-reader) | ✅ Yes | VS Code extension — watches `prompts/` folder, sends files to `api.anthropic.com/v1/messages` on save |
+| [`save-selected-text`](https://github.com/kaidez/save-selected-text) | ✅ Yes | VS Code extension — saves highlighted text to `prompts/` and sends to Claude API via right-click |
+| `mcp-prompt-server` (this project) | ❌ No | MCP server — exposes prompt files as tools for Claude Desktop to call autonomously via stdio |
+
+**Key distinction:** The two VS Code extensions make direct HTTP calls to `api.anthropic.com/v1/messages` using an API key. This MCP server does not — it communicates with Claude Desktop via stdio (JSON-RPC), and Claude Desktop handles the API layer internally. Understanding this boundary — where the Claude API lives vs. where MCP lives — was one of the core learnings from building this series.
 
 ---
 
@@ -211,4 +218,4 @@ npm test
 
 MCP turns Claude from a conversational assistant into an autonomous agent that can interact with local systems. The stdio transport used here is the same IPC pattern used in language servers, compilers, and build tools — battle-tested Unix infrastructure repurposed for AI tooling.
 
-The stateless, tool-based design maps directly to enterprise integration patterns: each tool is a discrete, testable unit with defined inputs, defined outputs, and no hidden side effects. That's the same contract you'd write for a REST endpoint, a message queue consumer, or a workflow node in an iPaaS platform like Workato or Boomi.
+The stateless, tool-based design maps directly to enterprise integration patterns: each tool is a discrete, testable unit with defined inputs, defined outputs, and no hidden side effects. That's the same contract you'd write for a REST endpoint, a message queue consumer, or a workflow node in an iPaaS (Integration Platform as a Service) platform like Workato or Boomi.
