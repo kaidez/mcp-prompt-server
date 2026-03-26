@@ -11,7 +11,7 @@
     "test": "mocha --require ts-node/esm src/test/suite/index.test.ts"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.27.1",
+    "@modelcontextprotocol/sdk": "^1.28.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -22,6 +22,6 @@
     "sinon": "^21.0.3",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }
